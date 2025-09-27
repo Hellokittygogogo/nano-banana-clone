@@ -3,6 +3,7 @@
 import { useState, useRef } from "react"
 import { motion } from "framer-motion"
 import { Upload, Wand2, Download, RotateCw, Sparkles } from "lucide-react"
+import Image from "next/image"
 
 export function ImageEditor() {
   const [originalImage, setOriginalImage] = useState<string | null>(null)
@@ -94,9 +95,11 @@ export function ImageEditor() {
                 </div>
               ) : (
                 <div className="relative group">
-                  <img
+                  <Image
                     src={originalImage}
                     alt="Original"
+                    width={400}
+                    height={256}
                     className="w-full h-64 object-cover rounded-2xl"
                   />
                   <button
@@ -139,9 +142,11 @@ export function ImageEditor() {
                   </div>
                 ) : editedImage ? (
                   <div className="relative group w-full h-full">
-                    <img
+                    <Image
                       src={editedImage}
                       alt="Edited"
+                      width={400}
+                      height={256}
                       className="w-full h-full object-cover rounded-xl"
                     />
                     <button
