@@ -29,13 +29,33 @@ export function ImageEditor() {
 
     setIsProcessing(true)
 
-    // Simulate AI processing
-    setTimeout(() => {
-      // For demo purposes, we'll just copy the original image
-      // In a real app, this would call your AI API
-      setEditedImage(originalImage)
+    try {
+      // 调用你的API
+      const response = await fetch('/api/edit-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          image: originalImage,
+          prompt: prompt
+        })
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setEditedImage(data.editedImage)
+      } else {
+        console.error('API Error:', data.error)
+        alert('处理失败: ' + data.error)
+      }
+    } catch (error) {
+      console.error('Network Error:', error)
+      alert('网络错误，请重试')
+    } finally {
       setIsProcessing(false)
-    }, 3000)
+    }
   }
 
   const handleDownload = () => {

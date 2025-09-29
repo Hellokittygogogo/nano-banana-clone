@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Check, Zap, Crown, Star, ChevronDown } from "lucide-react"
+import { Check, Star, ChevronDown } from "lucide-react"
 
 const pricingPlans = [
   {
