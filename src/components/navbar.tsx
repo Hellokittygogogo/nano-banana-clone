@@ -96,12 +96,20 @@ export function Navbar() {
                 )}
               </div>
             ) : (
-              <button
-                onClick={() => signIn('google')}
-                className="bg-gradient-to-r from-primary to-secondary text-primary-foreground px-6 py-2 rounded-full font-medium hover:opacity-90 transition-opacity"
-              >
-                Sign In
-              </button>
+              <div className="flex items-center space-x-4">
+                <Link
+                  href="/auth/signin"
+                  className="bg-gradient-to-r from-primary to-secondary text-primary-foreground px-6 py-2 rounded-full font-medium hover:opacity-90 transition-opacity"
+                >
+                  Sign In
+                </Link>
+                <button
+                  onClick={() => signIn('google')}
+                  className="text-sm bg-muted hover:bg-muted/80 px-4 py-2 rounded-full transition-colors"
+                >
+                  Google
+                </button>
+              </div>
             )}
           </div>
 
@@ -159,15 +167,24 @@ export function Navbar() {
                 </button>
               </div>
             ) : (
-              <button
-                onClick={() => {
-                  setIsOpen(false)
-                  signIn('google')
-                }}
-                className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground px-6 py-2 rounded-full font-medium"
-              >
-                Sign In
-              </button>
+              <div className="space-y-2">
+                <Link
+                  href="/auth/signin"
+                  className="block w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground px-6 py-2 rounded-full font-medium text-center"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Sign In
+                </Link>
+                <button
+                  onClick={() => {
+                    setIsOpen(false)
+                    signIn('google')
+                  }}
+                  className="w-full bg-muted hover:bg-muted/80 px-4 py-2 rounded-full text-sm"
+                >
+                  Google Login
+                </button>
+              </div>
             )}
           </motion.div>
         )}
