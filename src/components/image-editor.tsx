@@ -48,6 +48,13 @@ export function ImageEditor() {
         setEditedImage(data.editedImage)
       } else {
         console.error('API Error:', data.error)
+
+        // 如果需要登录，跳转到登录页面
+        if (response.status === 401 && data.redirectTo) {
+          window.location.href = data.redirectTo
+          return
+        }
+
         alert('处理失败: ' + data.error)
       }
     } catch (error) {

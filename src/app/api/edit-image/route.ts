@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { apiRateLimiter, ipRateLimiter } from '@/lib/rate-limiter'
-import { getUserFromRequest, canUserMakeRequest, consumeUserCredit } from '@/lib/auth'
+import { getAuthenticatedUser, canUserMakeRequest, consumeUserCredit } from '@/lib/auth-nextauth'
 import { validateImageUpload, validatePrompt, validateRequest, logSuspiciousActivity, sanitizeInput } from '@/lib/security'
 
 // FAL AI 集成 (替换为你的实际配置)
@@ -44,10 +44,13 @@ export async function POST(request: NextRequest) {
     }
 
     // 3. 用户认证检查
-    const user = getUserFromRequest(request)
+    const user = await getAuthenticatedUser()
     if (!user) {
       return NextResponse.json(
-        { error: 'Authentication required' },
+        {
+          error: 'Authentication required',
+          redirectTo: '/auth/signin'
+        },
         { status: 401 }
       )
     }
@@ -159,6 +162,7 @@ export async function POST(request: NextRequest) {
         message: 'Image processed successfully (demo mode)',
         creditsUsed: 1,
         creditsRemaining: user.credits,
+        dailyRemaining: canProceed.dailyRemaining - 1,
         processingTime: Date.now() - startTime
       })
 
