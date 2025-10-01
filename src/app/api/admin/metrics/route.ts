@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAPIMetrics } from '@/lib/monitoring'
 
-export const runtime = 'edge'
-
 export async function GET(request: NextRequest) {
   // 简单的管理员认证（生产环境应使用更安全的方式）
   const adminKey = request.headers.get('x-admin-key')
