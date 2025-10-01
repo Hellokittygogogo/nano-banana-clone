@@ -3,6 +3,8 @@ import { apiRateLimiter, ipRateLimiter } from '@/lib/rate-limiter'
 import { getAuthenticatedUser, canUserMakeRequest, consumeUserCredit } from '@/lib/auth-nextauth'
 import { validateImageUpload, validatePrompt, validateRequest, logSuspiciousActivity, sanitizeInput } from '@/lib/security'
 
+export const runtime = 'edge'
+
 // FAL AI 集成 (替换为你的实际配置)
 // import * as fal from '@fal-ai/serverless-client'
 
